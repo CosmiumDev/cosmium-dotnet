@@ -1,0 +1,55 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.1</TargetFramework>
+        <Nullable>enable</Nullable>
+        <PackageId>Cosmium.EmbeddedServer</PackageId>
+        <Version>0.0.1-alpha-1</Version>
+        <Title>Cosmium embedded server</Title>
+        <Authors>Pijus Kamandulis</Authors>
+        <Description>In memory Cosmos DB emulation</Description>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <!-- Linux -->
+        <None Include="../../cosmium_dist/cosmium-linux-amd64.so">
+            <Pack>true</Pack>
+            <PackagePath>runtimes/linux-x64/native</PackagePath>
+            <Link>Runtimes/cosmium-linux-amd64.so</Link>
+        </None>
+        <None Include="../../cosmium_dist/cosmium-linux-arm64.so">
+            <Pack>true</Pack>
+            <PackagePath>runtimes/linux-arm64/native</PackagePath>
+            <Link>Runtimes/cosmium-linux-arm64.so</Link>
+        </None>
+
+        <!-- Windows -->
+        <None Include="../../cosmium_dist/cosmium-windows-amd64.dll">
+            <Pack>true</Pack>
+            <PackagePath>runtimes/win-x64/native</PackagePath>
+            <Link>Runtimes/cosmium-windows-amd64.dll</Link>
+        </None>
+        <None Include="../../cosmium_dist/cosmium-windows-arm64.dll">
+            <Pack>true</Pack>
+            <PackagePath>runtimes/win-arm64/native</PackagePath>
+            <Link>Runtimes/cosmium-windows-arm64.dll</Link>
+        </None>
+
+        <!-- macOS -->
+        <None Include="../../cosmium_dist/cosmium-darwin-amd64.dylib">
+            <Pack>true</Pack>
+            <PackagePath>runtimes/osx-x64/native</PackagePath>
+            <Link>Runtimes/cosmium-darwin-amd64.dylib</Link>
+        </None>
+        <None Include="../../cosmium_dist/cosmium-darwin-arm64.dylib">
+            <Pack>true</Pack>
+            <PackagePath>runtimes/osx-arm64/native</PackagePath>
+            <Link>Runtimes/cosmium-darwin-arm64.dylib</Link>
+        </None>
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="System.Text.Json" Version="9.0.0" />
+    </ItemGroup>
+
+</Project>
