@@ -8,10 +8,9 @@ public class Tests : TestBase
     public async Task CreateDatabaseAsync_ShouldCreateDatabase()
     {
         var databaseId = Guid.NewGuid().ToString();
-        var cosmosClient = GetCosmosClient();
 
         var createDatabaseResponse = await cosmosClient.CreateDatabaseAsync(databaseId);
-        var serverState = GetServerState();
+        var serverState = serverInstance.GetServerState();
 
         Assert.That(createDatabaseResponse, Is.Not.Null);
         Assert.That(createDatabaseResponse.Resource.Id, Is.EqualTo(databaseId));
