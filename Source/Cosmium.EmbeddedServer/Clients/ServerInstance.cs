@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text.Json;
 using Cosmium.EmbeddedServer.Contracts;
@@ -29,7 +30,13 @@ namespace Cosmium.EmbeddedServer.Clients
 
         public DatabaseClient CreateDatabase(string databaseName)
         {
-            var result = CosmiumInterop.CreateDatabase(instanceName, databaseName);
+            var databaseRequest = new Dictionary<string, string>()
+            {
+                { "id", databaseName },
+            };
+
+            var requestJson = JsonSerializer.Serialize(databaseRequest);
+            var result = CosmiumInterop.CreateDatabase(instanceName, requestJson);
             if (result != 0)
             {
                 throw new Exception("Failed to create database");
