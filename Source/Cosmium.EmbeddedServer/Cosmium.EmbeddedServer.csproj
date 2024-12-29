@@ -4,12 +4,13 @@
         <TargetFramework>netstandard2.1</TargetFramework>
         <Nullable>enable</Nullable>
         <PackageId>Cosmium.EmbeddedServer</PackageId>
-        <Version>0.0.1-alpha-3</Version>
+        <Version>0.0.1</Version>
         <Title>Cosmium embedded server</Title>
         <Authors>Pijus Kamandulis</Authors>
         <Description>In memory Cosmos DB emulation</Description>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <RepositoryUrl>https://github.com/pikami/cosmium-dotnet</RepositoryUrl>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
     </PropertyGroup>
 
     <ItemGroup>
@@ -48,6 +49,9 @@
             <PackagePath>runtimes/osx-arm64/native/cosmium.dylib</PackagePath>
             <Link>Runtimes/cosmium-darwin-arm64.dylib</Link>
         </None>
+
+        <!-- Misc -->
+        <None Include="../../README.md" Pack="true" PackagePath="\"/>
     </ItemGroup>
 
     <ItemGroup>

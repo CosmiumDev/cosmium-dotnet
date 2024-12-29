@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using System.Text.Json;
 using Cosmium.EmbeddedServer.Contracts;
+using Cosmium.EmbeddedServer.Helpers;
 using Cosmium.EmbeddedServer.Interop;
 
 namespace Cosmium.EmbeddedServer.Clients
@@ -11,13 +11,15 @@ namespace Cosmium.EmbeddedServer.Clients
     {
         private readonly string instanceName;
         private readonly ServerConfiguration serverConfiguration;
+        private readonly IDocumentSerializer? serializer;
 
-        public ServerInstance(string instanceName, ServerConfiguration serverConfiguration)
+        public ServerInstance(string instanceName, ServerConfiguration serverConfiguration, IDocumentSerializer? serializer = null)
         {
             this.instanceName = instanceName;
             this.serverConfiguration = serverConfiguration;
+            this.serializer = serializer;
 
-            var configurationJson = JsonSerializer.Serialize(serverConfiguration);
+            var configurationJson = JsonSerializationHelper.ToJson(serverConfiguration);
             var createInstanceResult = CosmiumInterop.CreateServerInstance(instanceName, configurationJson);
             if (createInstanceResult != 0)
             {
@@ -28,26 +30,26 @@ namespace Cosmium.EmbeddedServer.Clients
         public string Endpoint => $"https://{serverConfiguration.Host}:{serverConfiguration.Port}/";
         public string AccountKey => serverConfiguration.AccountKey;
 
-        public DatabaseClient CreateDatabase(string databaseName)
+        public IDatabaseClient CreateDatabase(string databaseName)
         {
             var databaseRequest = new Dictionary<string, string>()
             {
                 { "id", databaseName },
             };
 
-            var requestJson = JsonSerializer.Serialize(databaseRequest);
+            var requestJson = JsonSerializationHelper.ToJson(databaseRequest);
             var result = CosmiumInterop.CreateDatabase(instanceName, requestJson);
             if (result != 0)
             {
                 throw new Exception("Failed to create database");
             }
 
-            return new DatabaseClient(instanceName, databaseName);
+            return new DatabaseClient(instanceName, databaseName, serializer);
         }
 
-        public DatabaseClient GetDatabase(string databaseName)
+        public IDatabaseClient GetDatabase(string databaseName)
         {
-            return new DatabaseClient(instanceName, databaseName);
+            return new DatabaseClient(instanceName, databaseName, serializer);
         }
 
         public bool DeleteDatabase(string databaseName)
@@ -70,12 +72,12 @@ namespace Cosmium.EmbeddedServer.Clients
                 return null;
             }
             
-            return JsonSerializer.Deserialize<ServerState>(stateJson);
+            return JsonSerializationHelper.FromJson<ServerState>(stateJson);
         }
 
         public static bool LoadInstanceState(string serverName, ServerState state)
         {
-            var stateJson = JsonSerializer.Serialize(state);
+            var stateJson = JsonSerializationHelper.ToJson(state);
 
             var result = CosmiumInterop.LoadServerInstanceState(serverName, stateJson);
             return result == 0;

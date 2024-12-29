@@ -1,22 +1,25 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using System.Text.Json;
+using Cosmium.EmbeddedServer.Contracts;
+using Cosmium.EmbeddedServer.Helpers;
 using Cosmium.EmbeddedServer.Interop;
 
 namespace Cosmium.EmbeddedServer.Clients
 {
-    public class CollectionClient
+    internal class CollectionClient : ICollectionClient
     {
         private readonly string instanceName;
         private readonly string databaseName;
         private readonly string collectionName;
+        private IDocumentSerializer? serializer;
 
-        public CollectionClient(string instanceName, string databaseName, string collectionName)
+        public CollectionClient(string instanceName, string databaseName, string collectionName, IDocumentSerializer? serializer)
         {
             this.instanceName = instanceName;
             this.databaseName = databaseName;
             this.collectionName = collectionName;
+            this.serializer = serializer;
         }
 
         public IEnumerable<T>? GetAll<T>() where T : class
@@ -32,8 +35,8 @@ namespace Cosmium.EmbeddedServer.Clients
             {
                 return null;
             }
-
-            return JsonSerializer.Deserialize<List<T>>(resultStr);
+            
+            return JsonSerializationHelper.FromJson<List<T>>(resultStr, serializer);
         }
 
         public T? GetById<T>(string id) where T : class
@@ -50,19 +53,19 @@ namespace Cosmium.EmbeddedServer.Clients
                 return null;
             }
 
-            return JsonSerializer.Deserialize<T>(resultStr);
+            return JsonSerializationHelper.FromJson<T>(resultStr, serializer);
         }
 
         public bool UpdateDocument<T>(string id, T document) where T : class
         {
-            var documentStr = JsonSerializer.Serialize(document);
+            var documentStr = JsonSerializationHelper.ToJson(document, serializer);
             var result = CosmiumInterop.UpdateDocument(instanceName, databaseName, collectionName, id, documentStr);
             return result == 0;
         }
 
         public bool CreateDocument<T>(string id, T document) where T : class
         {
-            var documentStr = JsonSerializer.Serialize(document);
+            var documentStr = JsonSerializationHelper.ToJson(document, serializer);
             var result = CosmiumInterop.CreateDocument(instanceName, databaseName, collectionName, documentStr);
             return result == 0;
         }

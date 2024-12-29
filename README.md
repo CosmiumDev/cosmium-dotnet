@@ -58,6 +58,10 @@ var cosmosClient = (new CosmosClientBuilder(serverInstance.Endpoint, serverInsta
 
 In the real world you might want to make a base class for your integration tests that does this setup for you, you can take a look at [Tests/Cosmium.EmbeddedServer.Tests/TestBase.cs](Tests/Cosmium.EmbeddedServer.Tests/TestBase.cs) for inspiration.
 
+#### Custom json serialization
+
+While inserting data into the emulator you might want to use a custom serializer, for that you can implement the interface `IDocumentSerializer` and pass it to the constructor while creating the `ServerInstance`.
+
 ### Example Project
 
 For a complete working example of how to use `cosmium-dotnet`, check out the **Todo App Example** in the repository:
