@@ -54,6 +54,12 @@ var cosmosClient = (new CosmosClientBuilder(serverInstance.Endpoint, serverInsta
     .Build();
 
 // Use the client in your tests or application setup
+
+// You might also want to create some databases and collections,
+// The ServerInstance object exposes some useful methods for that:
+var database = serverInstance.CreateDatabase("test-db");
+database.CreateCollection("coll-1");
+database.CreateCollection("coll-2");
 ```
 
 In the real world you might want to make a base class for your integration tests that does this setup for you, you can take a look at [Tests/Cosmium.EmbeddedServer.Tests/TestBase.cs](Tests/Cosmium.EmbeddedServer.Tests/TestBase.cs) for inspiration.

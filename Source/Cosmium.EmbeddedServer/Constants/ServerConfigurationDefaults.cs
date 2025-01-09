@@ -1,3 +1,5 @@
+using Cosmium.EmbeddedServer.Contracts;
+
 namespace Cosmium.EmbeddedServer.Constants
 {
     internal static class ServerConfigurationDefaults
@@ -12,6 +14,6 @@ namespace Cosmium.EmbeddedServer.Constants
         internal const string PersistDataFilePath = "";
         internal const bool DisableAuth = false;
         internal const bool DisableTls = false;
-        internal const bool Debug = false;
+        internal static readonly LogLevel LogLevel = LogLevel.Silent;
     }
 }

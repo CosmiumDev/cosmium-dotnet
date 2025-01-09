@@ -46,8 +46,6 @@ public class DocumentTests : TestBase
             .GetValueOrDefault(collectionClient.Id)?
             .GetValueOrDefault(document.id);
         
-        Console.WriteLine(JsonSerializer.Serialize(serverState));
-        
         Assert.That(result, Is.Not.Null);
         Assert.That(result.StatusCode, Is.EqualTo(HttpStatusCode.Created));
         

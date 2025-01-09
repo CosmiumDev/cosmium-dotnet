@@ -1,5 +1,6 @@
 using System.Text.Json.Serialization;
 using Cosmium.EmbeddedServer.Constants;
+using Cosmium.EmbeddedServer.JsonConverters;
 
 namespace Cosmium.EmbeddedServer.Contracts
 {
@@ -35,7 +36,8 @@ namespace Cosmium.EmbeddedServer.Contracts
         [JsonPropertyName("DisableTls")]
         public bool DisableTls { get; set; } = ServerConfigurationDefaults.DisableTls;
 
-        [JsonPropertyName("Debug")]
-        public bool Debug { get; set; } = ServerConfigurationDefaults.Debug;
+        [JsonPropertyName("LogLevel")]
+        [JsonConverter(typeof(LowercaseEnumConverter<LogLevel>))]
+        public LogLevel LogLevel { get; set; } = ServerConfigurationDefaults.LogLevel;
     }
 }
