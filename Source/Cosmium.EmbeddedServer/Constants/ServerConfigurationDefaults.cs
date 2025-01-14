@@ -14,6 +14,6 @@ namespace Cosmium.EmbeddedServer.Constants
         internal const string PersistDataFilePath = "";
         internal const bool DisableAuth = false;
         internal const bool DisableTls = false;
-        internal static readonly LogLevel LogLevel = LogLevel.Silent;
+        internal static readonly LogLevel LogLevel = LogLevel.Error;
     }
 }
