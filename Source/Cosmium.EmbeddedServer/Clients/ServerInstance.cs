@@ -67,6 +67,8 @@ namespace Cosmium.EmbeddedServer.Clients
             }
 
             var stateJson = Marshal.PtrToStringAnsi(resultPtr);
+            CosmiumInterop.FreeMemory(resultPtr);
+
             if (string.IsNullOrEmpty(stateJson))
             {
                 return null;

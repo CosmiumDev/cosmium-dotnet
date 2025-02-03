@@ -4,7 +4,7 @@
         <TargetFramework>netstandard2.1</TargetFramework>
         <Nullable>enable</Nullable>
         <PackageId>Cosmium.EmbeddedServer</PackageId>
-        <Version>0.0.3</Version>
+        <Version>0.0.5</Version>
         <Title>Cosmium embedded server</Title>
         <Authors>Pijus Kamandulis</Authors>
         <Description>In memory Cosmos DB emulation</Description>

@@ -57,5 +57,8 @@ namespace Cosmium.EmbeddedServer.Interop
 
         [DllImport(DllName, CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
         internal static extern int LoadServerInstanceState(string serverName, string stateJson);
+
+        [DllImport(DllName, CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void FreeMemory(IntPtr ptr);
     }
 }

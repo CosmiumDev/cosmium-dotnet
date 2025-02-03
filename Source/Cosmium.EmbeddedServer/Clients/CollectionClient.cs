@@ -31,6 +31,8 @@ namespace Cosmium.EmbeddedServer.Clients
             }
             
             var resultStr = Marshal.PtrToStringAnsi(resultPtr);
+            CosmiumInterop.FreeMemory(resultPtr);
+
             if (string.IsNullOrEmpty(resultStr))
             {
                 return null;
@@ -48,6 +50,8 @@ namespace Cosmium.EmbeddedServer.Clients
             }
             
             var resultStr = Marshal.PtrToStringAnsi(resultPtr);
+            CosmiumInterop.FreeMemory(resultPtr);
+
             if (string.IsNullOrEmpty(resultStr))
             {
                 return null;
