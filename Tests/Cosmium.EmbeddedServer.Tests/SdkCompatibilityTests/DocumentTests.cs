@@ -1,5 +1,4 @@
 using System.Net;
-using System.Text.Json;
 using Cosmium.EmbeddedServer.Tests.TestModels;
 using Microsoft.Azure.Cosmos;
 
@@ -25,7 +24,6 @@ public class DocumentTests : TestBase
     [TearDown]
     public void TearDown()
     {
-        serverInstance.GetDatabase(databaseClient.Id).DeleteCollection(collectionClient.Id);
         serverInstance.DeleteDatabase(databaseClient.Id);
     }
 

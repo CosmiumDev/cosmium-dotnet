@@ -1,3 +1,4 @@
+// ReSharper disable InconsistentNaming
 namespace Cosmium.EmbeddedServer.Tests.TestModels;
 
 public class TestDocument

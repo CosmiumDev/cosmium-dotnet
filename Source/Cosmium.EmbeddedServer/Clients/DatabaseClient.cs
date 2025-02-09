@@ -10,9 +10,9 @@ namespace Cosmium.EmbeddedServer.Clients
     {
         private readonly string instanceName;
         private readonly string databaseName;
-        private IDocumentSerializer? serializer;
+        private IDocumentSerializer serializer;
 
-        public DatabaseClient(string instanceName, string databaseName, IDocumentSerializer? serializer)
+        public DatabaseClient(string instanceName, string databaseName, IDocumentSerializer serializer)
         {
             this.instanceName = instanceName;
             this.databaseName = databaseName;

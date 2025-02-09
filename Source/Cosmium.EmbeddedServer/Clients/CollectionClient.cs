@@ -12,9 +12,9 @@ namespace Cosmium.EmbeddedServer.Clients
         private readonly string instanceName;
         private readonly string databaseName;
         private readonly string collectionName;
-        private IDocumentSerializer? serializer;
+        private readonly IDocumentSerializer serializer;
 
-        public CollectionClient(string instanceName, string databaseName, string collectionName, IDocumentSerializer? serializer)
+        public CollectionClient(string instanceName, string databaseName, string collectionName, IDocumentSerializer serializer)
         {
             this.instanceName = instanceName;
             this.databaseName = databaseName;
@@ -22,7 +22,7 @@ namespace Cosmium.EmbeddedServer.Clients
             this.serializer = serializer;
         }
 
-        public IEnumerable<T>? GetAll<T>() where T : class
+        public IEnumerable<T> GetAll<T>() where T : class
         {
             var resultPtr = CosmiumInterop.GetAllDocuments(instanceName, databaseName, collectionName);
             if (resultPtr == IntPtr.Zero)
@@ -41,7 +41,7 @@ namespace Cosmium.EmbeddedServer.Clients
             return JsonSerializationHelper.FromJson<List<T>>(resultStr, serializer);
         }
 
-        public T? GetById<T>(string id) where T : class
+        public T GetById<T>(string id) where T : class
         {
             var resultPtr = CosmiumInterop.GetDocument(instanceName, databaseName, collectionName, id);
             if (resultPtr == IntPtr.Zero)

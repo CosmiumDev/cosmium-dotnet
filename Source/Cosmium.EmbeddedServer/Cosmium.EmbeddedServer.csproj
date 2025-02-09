@@ -1,8 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>netstandard2.1</TargetFramework>
-        <Nullable>enable</Nullable>
+        <TargetFrameworks>netstandard2.1;net8.0;net9.0</TargetFrameworks>
         <PackageId>Cosmium.EmbeddedServer</PackageId>
         <Version>0.0.5</Version>
         <Title>Cosmium embedded server</Title>
@@ -11,6 +10,10 @@
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <RepositoryUrl>https://github.com/pikami/cosmium-dotnet</RepositoryUrl>
         <PackageReadmeFile>README.md</PackageReadmeFile>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(TargetFramework)' == 'net8.0' OR '$(TargetFramework)' == 'net9.0'">
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     </PropertyGroup>
 
     <ItemGroup>
@@ -54,8 +57,12 @@
         <None Include="../../README.md" Pack="true" PackagePath="\"/>
     </ItemGroup>
 
-    <ItemGroup>
-        <PackageReference Include="System.Text.Json" Version="9.0.0" />
+    <ItemGroup Condition="'$(TargetFramework)' == 'net9.0'">
+        <PackageReference Include="System.Text.Json" Version="9.0.1" />
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.1' OR '$(TargetFramework)' == 'net8.0'">
+        <PackageReference Include="System.Text.Json" Version="8.0.5" />
     </ItemGroup>
 
 </Project>

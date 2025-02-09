@@ -7,7 +7,7 @@ namespace Cosmium.EmbeddedServer.Helpers
 {
     internal static class JsonSerializationHelper
     {
-        internal static string ToJson<T>(T input, IDocumentSerializer? serializer = null)
+        internal static string ToJson<T>(T input, IDocumentSerializer serializer = null)
         {
             if (serializer == null)
             {
@@ -19,7 +19,7 @@ namespace Cosmium.EmbeddedServer.Helpers
             return reader.ReadToEnd();
         }
 
-        internal static T FromJson<T>(string input, IDocumentSerializer? serializer = null)
+        internal static T FromJson<T>(string input, IDocumentSerializer serializer = null)
         {
             if (serializer == null)
             {

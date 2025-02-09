@@ -11,9 +11,9 @@ namespace Cosmium.EmbeddedServer.Clients
     {
         private readonly string instanceName;
         private readonly ServerConfiguration serverConfiguration;
-        private readonly IDocumentSerializer? serializer;
+        private readonly IDocumentSerializer serializer;
 
-        public ServerInstance(string instanceName, ServerConfiguration serverConfiguration, IDocumentSerializer? serializer = null)
+        public ServerInstance(string instanceName, ServerConfiguration serverConfiguration, IDocumentSerializer serializer = null)
         {
             this.instanceName = instanceName;
             this.serverConfiguration = serverConfiguration;
@@ -58,7 +58,7 @@ namespace Cosmium.EmbeddedServer.Clients
             return result == 0;
         }
 
-        public ServerState? GetServerState()
+        public ServerState GetServerState()
         {
             var resultPtr = CosmiumInterop.GetServerInstanceState(instanceName);
             if (resultPtr == IntPtr.Zero)

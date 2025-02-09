@@ -36,7 +36,7 @@ public class TestBase
     [OneTimeTearDown]
     public void OneTimeTearDown()
     {
-        serverInstance.Dispose();
         cosmosClient.Dispose();
+        serverInstance.Dispose();
     }
 }
