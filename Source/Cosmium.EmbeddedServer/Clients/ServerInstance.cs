@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using Cosmium.EmbeddedServer.Contracts;
+using Cosmium.EmbeddedServer.Exceptions;
 using Cosmium.EmbeddedServer.Helpers;
 using Cosmium.EmbeddedServer.Interop;
 
@@ -23,7 +24,7 @@ namespace Cosmium.EmbeddedServer.Clients
             var createInstanceResult = CosmiumInterop.CreateServerInstance(instanceName, configurationJson);
             if (createInstanceResult != 0)
             {
-                throw new Exception("Failed to create instance"); // TODO: Custom exceptions
+                throw new CosmiumServerException(createInstanceResult, "Failed to create instance");
             }
         }
         
@@ -41,7 +42,7 @@ namespace Cosmium.EmbeddedServer.Clients
             var result = CosmiumInterop.CreateDatabase(instanceName, requestJson);
             if (result != 0)
             {
-                throw new Exception("Failed to create database");
+                throw new CosmiumServerException(result, "Failed to create database");
             }
 
             return new DatabaseClient(instanceName, databaseName, serializer);

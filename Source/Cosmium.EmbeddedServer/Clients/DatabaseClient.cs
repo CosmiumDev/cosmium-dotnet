@@ -1,6 +1,6 @@
-using System;
 using System.Collections.Generic;
 using Cosmium.EmbeddedServer.Contracts;
+using Cosmium.EmbeddedServer.Exceptions;
 using Cosmium.EmbeddedServer.Helpers;
 using Cosmium.EmbeddedServer.Interop;
 
@@ -30,7 +30,7 @@ namespace Cosmium.EmbeddedServer.Clients
             var result = CosmiumInterop.CreateCollection(instanceName, databaseName, requestJson);
             if (result != 0)
             {
-                throw new Exception("Failed to create collection");
+                throw new CosmiumServerException(result, "Failed to create collection");
             }
             
             return new CollectionClient(instanceName, databaseName, collectionName, serializer);
