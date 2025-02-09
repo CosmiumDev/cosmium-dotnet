@@ -3,12 +3,12 @@
     <PropertyGroup>
         <TargetFrameworks>netstandard2.1;net8.0;net9.0</TargetFrameworks>
         <PackageId>Cosmium.EmbeddedServer</PackageId>
-        <Version>0.0.5</Version>
+        <Version>0.0.1-local</Version>
         <Title>Cosmium embedded server</Title>
         <Authors>Pijus Kamandulis</Authors>
         <Description>In memory Cosmos DB emulation</Description>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
-        <RepositoryUrl>https://github.com/pikami/cosmium-dotnet</RepositoryUrl>
+        <RepositoryUrl>https://github.com/CosmiumDev/cosmium-dotnet</RepositoryUrl>
         <PackageReadmeFile>README.md</PackageReadmeFile>
     </PropertyGroup>
 

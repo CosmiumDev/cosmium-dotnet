@@ -1,0 +1,49 @@
+name: Run Tests
+
+on:
+  push:
+    branches:
+      - '*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - id: cosmium-dl
+      name: Download latest cosmium build
+      uses: robinraju/release-downloader@v1.11
+      with:
+        repository: 'pikami/cosmium'
+        latest: true
+        fileName: '*_shared-libraries.tar.gz'
+        out-file-path: 'shared-library_dist'
+        extract: true
+
+    - name: Move cosmium shared libraries
+      run: |
+        echo "This release includes ${{steps.cosmium-dl.outputs.tag_name}} of cosmium"
+
+        echo "Moving shared libraries to cosmium_dist..."
+        mv ./shared-library_dist/cosmium_*_shared-libraries/sharedlibrary_dist cosmium_dist
+
+        rm -rf ./shared-library_dist
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: |
+          6.0.x
+          8.0.x
+          9.0.x
+
+    - name: Restore dependencies
+      run: dotnet restore
+
+    - name: Build
+      run: dotnet build --no-restore
+
+    - name: Test
+      run: dotnet test --no-build --verbosity normal

@@ -38,7 +38,7 @@ using Cosmium.EmbeddedServer;
 // Initialize a new server instance
 var serverInstance = new ServerInstance(
     Guid.NewGuid().ToString(), // Unique server name
-    new ServerConfiguration { Port = new Random().Next(10000, 20000) } // Dynamic port selection
+    new ServerConfiguration { Port = 8082 } // If you're already running an emulator insance on 8081
 );
 
 // Create and configure the Cosmos client
@@ -78,6 +78,15 @@ This project demonstrates how to:
 
 1. Integrate `cosmium-dotnet` into a simple TODO API project.
 2. Write integration tests using the in-memory CosmosDB emulator.
+
+# Contributing and Development
+
+This project uses native libraries to run the CosmosDB emulator, so it requires some additional setup to build and run the tests.
+
+## Prerequisites
+
+- Create a `cosmium_dist` directory in the root of the repository.
+- Download the Cosmium native libraries (cosmium\_<version>\_shared-libraries.tar.gz) from the [Cosmium releases page](https://github.com/pikami/cosmium/releases) and place the .dll/.so/.dylib files in the `cosmium_dist` directory.
 
 # License
 
