@@ -15,12 +15,23 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
+    - name: Get version from tag
+      id: version
+      run: echo "version=$(echo ${GITHUB_REF#refs/tags/})" >> $GITHUB_OUTPUT
+
+    - name: Check if tag is pre-release
+      id: check_prerelease
+      run: |
+        is_prerelease=$(echo "${{ steps.version.outputs.version }}" | grep -q -E "(-|_|\.)(alpha|beta|rc)" && echo true || echo false)
+        echo "is_prerelease=$is_prerelease" >> $GITHUB_OUTPUT
+
     - id: cosmium-dl
       name: Download latest cosmium build
       uses: robinraju/release-downloader@v1.11
       with:
         repository: 'pikami/cosmium'
         latest: true
+        preRelease: ${{ steps.check_prerelease.outputs.is_prerelease == 'true' }}
         fileName: '*_shared-libraries.tar.gz'
         out-file-path: 'shared-library_dist'
         extract: true
@@ -51,18 +62,8 @@ jobs:
     - name: Test
       run: dotnet test --no-build --verbosity normal
 
-    - name: Get version from tag
-      id: version
-      run: echo "version=$(echo ${GITHUB_REF#refs/tags/})" >> $GITHUB_OUTPUT
-
     - name: Pack NuGet package
       run: dotnet pack --configuration Release --output nupkgs -p:PackageVersion=${{ steps.version.outputs.version }}
-
-    - name: Check if tag is pre-release
-      id: check_prerelease
-      run: |
-        is_prerelease=$(echo "${{ steps.version.outputs.version }}" | grep -q -E "(-|_|\.)(alpha|beta|rc)" && echo true || echo false)
-        echo "is_prerelease=$is_prerelease" >> $GITHUB_OUTPUT
 
     - name: Create GitHub Release
       uses: softprops/action-gh-release@v2
