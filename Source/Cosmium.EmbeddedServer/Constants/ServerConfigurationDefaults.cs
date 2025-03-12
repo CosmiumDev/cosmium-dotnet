@@ -15,5 +15,6 @@ namespace Cosmium.EmbeddedServer.Constants
         internal const bool DisableAuth = false;
         internal const bool DisableTls = false;
         internal static readonly LogLevel LogLevel = LogLevel.Error;
+        internal static readonly DataStore DataStore = DataStore.Map;
     }
 }

@@ -76,5 +76,4 @@ jobs:
           This release includes ${{steps.cosmium-dl.outputs.tag_name}} of cosmium
 
     - name: Publish NuGet package
-      if: steps.check_prerelease.outputs.is_prerelease == 'false'
       run: dotnet nuget push nupkgs/*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }}

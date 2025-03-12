@@ -12,9 +12,10 @@ namespace Cosmium.EmbeddedServer.Constants
         private const string ServerInstanceAlreadyExists = "Server instance already exists";
         private const string ServerInstanceNotFound = "Server instance not found";
         private const string FailedToStartServer = "Failed to start server";
-        private const string RepositoryNotFound = "Repository not found";
-        private const string RepositoryConflict = "Repository conflict";
-        private const string RepositoryBadRequest = "Repository bad request";
+        private const string CurrentDataStoreDoesNotSupportStateLoading = "Current Data Store does not support state loading";
+        private const string DataStoreNotFound = "Repository not found";
+        private const string DataStoreConflict = "Repository conflict";
+        private const string DataStoreBadRequest = "Repository bad request";
 
         internal static string GetMessage(ResponseType responseType)
         {
@@ -28,9 +29,10 @@ namespace Cosmium.EmbeddedServer.Constants
                 ResponseType.ServerInstanceAlreadyExists => ServerInstanceAlreadyExists,
                 ResponseType.ServerInstanceNotFound => ServerInstanceNotFound,
                 ResponseType.FailedToStartServer => FailedToStartServer,
-                ResponseType.RepositoryNotFound => RepositoryNotFound,
-                ResponseType.RepositoryConflict => RepositoryConflict,
-                ResponseType.RepositoryBadRequest => RepositoryBadRequest,
+                ResponseType.CurrentDataStoreDoesNotSupportStateLoading => CurrentDataStoreDoesNotSupportStateLoading,
+                ResponseType.DataStoreNotFound => DataStoreNotFound,
+                ResponseType.DataStoreConflict => DataStoreConflict,
+                ResponseType.DataStoreBadRequest => DataStoreBadRequest,
                 _ => Unknown,
             };
         }

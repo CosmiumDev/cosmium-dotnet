@@ -39,5 +39,9 @@ namespace Cosmium.EmbeddedServer.Contracts
         [JsonPropertyName("LogLevel")]
         [JsonConverter(typeof(LowercaseEnumConverter<LogLevel>))]
         public LogLevel LogLevel { get; set; } = ServerConfigurationDefaults.LogLevel;
+
+        [JsonPropertyName("DataStore")]
+        [JsonConverter(typeof(LowercaseEnumConverter<DataStore>))]
+        public DataStore DataStore { get; set; } = ServerConfigurationDefaults.DataStore;
     }
 }
